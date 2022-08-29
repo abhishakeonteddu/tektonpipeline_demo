@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: aws-run-
+spec:
+  taskRef:
+    name: aws-cli
+  params:
+    - name: SCRIPT
+      value: |
+        aws configure list
+    - name: ARGS
+      value:
+        - s3
+        - diagrawa-test
+  workspaces:
+    - name: secrets
+      secret:
+        secretName: aws-credentials

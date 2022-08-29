@@ -1,0 +1,35 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  creationTimestamp: null
+  generateName: buildah-run-
+  namespace: tekton-example
+spec:
+  params:
+  - name: BUILDER_IMAGE
+    value: quay.io/buildah/stable:v1.17.0
+  - name: BUILD_EXTRA_ARGS
+    value: ""
+  - name: CONTEXT
+    value: .
+  - name: DOCKERFILE
+    value: ./Dockerfile
+  - name: FORMAT
+    value: oci
+  - name: IMAGE
+    value: 443247825008.dkr.ecr.us-east-1.amazonaws.com/gitops-argocd:latest
+  - name: PUSH_EXTRA_ARGS
+    value: ""
+  - name: STORAGE_DRIVER
+    value: overlay
+  - name: TLSVERIFY
+    value: "true"
+  resources: {}
+  serviceAccountName: "ecrlogincred"
+  taskRef:
+    name: buildah
+  workspaces:
+  - name: source
+    persistentVolumeClaim:
+      claimName: shared-workspace
+
