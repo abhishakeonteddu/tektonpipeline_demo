@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  generateName: git-push-
+spec:
+  serviceAccountName: build-bot
+  taskRef:
+    kind: Task
+    name: git-cli
+  params:
+    - name: GIT_SCRIPT
+      value: |
+        git init
+        git remote add origin https://github.com/abhishakeonteddu/gitops-argocd.git
+        git pull origin master
+  workspaces:
+    - name: output
+      #emptyDir: {}
+      persistentVolumeClaim:
+        claimName: shared-workspace

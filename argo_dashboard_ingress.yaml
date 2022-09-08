@@ -1,0 +1,23 @@
+
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-dashboard
+  namespace: argocd
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      rewrite ^(/[a-z1-9\-]*)$ $1/ redirect;
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /login(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-repo-server
+                port:
+                  number: 8081

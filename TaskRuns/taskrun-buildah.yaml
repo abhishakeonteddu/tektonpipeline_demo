@@ -8,8 +8,8 @@ spec:
     name: buildah
   params:
     - name: IMAGE
-      value: '443247825008.dkr.ecr.us-east-1.amazonaws.com/gitops-argocd:v1.1'
-    - name: TLSVERIFY
+      value: '443247825008.dkr.ecr.us-east-1.amazonaws.com/gitops-argocd:v1.1.1'
+    - name: TLSVERIFY`:wq!
       value: 'false'
     - name: STORAGE_DRIVER
       value: 'vfs'

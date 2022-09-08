@@ -3,7 +3,7 @@ kind: PipelineRun
 metadata:
   generateName: pipelinerun-git-clone-build-push-deploy-
 spec:
-  serviceAccountName: tekton-pipeline
+  serviceAccountName: kubernetes-actions-account
   pipelineRef:
     name: pipeline-git-clone-build-push-deploy
   params:

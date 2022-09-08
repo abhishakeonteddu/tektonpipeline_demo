@@ -1,0 +1,14 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerBinding
+metadata:
+  name: tekton-trigger-binding
+spec:
+  params:
+  - name: repo-url
+    value: $(body.repository.clone_url)
+  - name: tag-name
+    value: master #$(body.repository.default_branch)
+  - name: image-full-path-with-tag
+    value: 443247825008.dkr.ecr.us-east-1.amazonaws.com/gitops-argocd:$(body.head_commit.id)
+  - name: deployment-manifest
+    value: deployment.yaml

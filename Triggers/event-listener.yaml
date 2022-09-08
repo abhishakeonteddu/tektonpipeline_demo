@@ -15,7 +15,8 @@ spec:
     #           - pull_request
     #     - cel:
     #         filter: "body.action in ['opened', 'synchronize', 'reopened']"
-   - bindings:
-     - name : tekton-trigger-binding
-     template:
-       name: tekton-trigger-template
+
+      bindings:
+        - ref: tekton-trigger-binding
+      template:
+        ref: tekton-trigger-template

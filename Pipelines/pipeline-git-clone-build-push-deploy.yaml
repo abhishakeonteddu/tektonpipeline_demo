@@ -73,11 +73,15 @@ spec:
     params:
       - name: script
         value: |
-          kubectl apply -f $(params.deployment-manifest)
+          cd /workspace/manifest-dir
+          curl https://raw.githubusercontent.com/abhishakeonteddu/gitops-argocd/main/deployment.yaml >deployment.yaml
+          ls -lrt
+          sed '56 c\"$(params.image-full-path-with-tag)"' /workspace/manifest-dir/deployment.yaml
+          kubectl create -f /workspace/manifest-dir/$(params.deployment-manifest) -n tekton-demo
           echo "----------"
           kubectl get deployment
     workspaces:
       - name: kubeconfig-dir
         workspace: empty-dir
       - name: manifest-dir
-        workspace: empty-dir
+        workspace: workspace
